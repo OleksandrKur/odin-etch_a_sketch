@@ -1,44 +1,41 @@
+const defaultResolution = 16;
+let currentResolution = defaultResolution;
+let currentMode = "monochrome";
 const container = document.querySelector(".container");
 let radios = document.querySelectorAll('input[type="radio"]');
+
+
+
 fillCanvas();
-draw();
+draw(currentMode);
+
+
 radios.forEach(radio => {
-    radio.addEventListener("click", ()=> draw())
+    radio.addEventListener("click", ()=> {
+        removeCanvas();
+        fillCanvas();
+        currentMode = radio.value;
+        draw(currentMode);
+    })
 })
 
 
-
-function draw(){
-    let mode;
-    radios.forEach(radio => {
-        if(radio.checked){
-            mode = radio.value;
-            console.log(mode);
-        }
-    })
+function draw(mode = "monochrome"){
     let canvas = document.querySelectorAll(".pixel");
-    if (mode === "black"){
-        canvas.forEach(pixel => {
-            pixel.addEventListener("mouseover", event => {
+    canvas.forEach(pixel => {
+        pixel.addEventListener("mouseover", event => {
+            if (mode === "monochrome"){
                 event.target.style.backgroundColor = "#292521";
-            });
-        })
-    }
-    else if(mode === "random"){
-        canvas.forEach(pixel => {
-            pixel.addEventListener("mouseover", event => {
+            }
+            else if(mode === "random"){
                 event.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
-            });
-        })       
-    }
-    else{
-        canvas.forEach(pixel => {
-            pixel.addEventListener("mouseover", event => {
+            }
+            else{
                 event.target.style.backgroundColor = `#000000`;
                 lowerOpacity(event.target);
-            });
-        })      
-    }
+            }
+        }); 
+    })
 }
 
 function removeCanvas(){
@@ -52,31 +49,30 @@ function erase(){
     let canvas = document.querySelectorAll(".pixel");
     canvas.forEach(pixel => {
         pixel.style.backgroundColor = "unset";
-        console.log(pixel.style.backgroundColor);
     });
 }
 
 
-function fillCanvas(squares = 16){
-    for (let i = 0; i < squares*squares; i++){
+function fillCanvas(){
+    for (let i = 0; i < currentResolution*currentResolution; i++){
         const pixel = document.createElement("div");
-        pixel.style.width = `${100 / squares}%`
+        pixel.style.width = `${100 / currentResolution}%`
         pixel.classList.add("pixel");
         container.appendChild(pixel);
     }
 }
 
 function changeResolution(){
-    let resolution = parseInt(prompt("Please enter a number (maximum 100)."));
-    if (resolution > 0 && resolution <= 100){
+    currentResolution = parseInt(prompt("Please enter a number (maximum 100)."));
+    if (currentResolution > 0 && currentResolution <= 100){
         removeCanvas();
-        fillCanvas(resolution);
-        draw();
+        fillCanvas(currentResolution);
+        draw(currentMode);
     }
     else{
+        currentResolution = defaultResolution;
         alert("Valid input: number (1-100)")
     }
-
 }
 
 function lowerOpacity(element){
