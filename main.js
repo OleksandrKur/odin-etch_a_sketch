@@ -7,7 +7,10 @@ let canvas = document.querySelectorAll(".pixel");
 canvas.forEach(pixel => {
     pixel.addEventListener("click", event => {
         event.target.style.backgroundColor = "black";
-    })
+    });
+    pixel.addEventListener("mouseover", event => {
+        event.target.style.backgroundColor = "black";
+    });
 })
 
 
