@@ -1,11 +1,21 @@
 const container = document.querySelector(".container");
-let resolutionButton = document.getElementById("set_resolution");
-
+let radios = document.querySelectorAll('input[type="radio"]');
 fillCanvas();
-draw("test");
+draw();
+radios.forEach(radio => {
+    radio.addEventListener("click", ()=> draw())
+})
 
 
-function draw(mode = 'black'){
+
+function draw(){
+    let mode;
+    radios.forEach(radio => {
+        if(radio.checked){
+            mode = radio.value;
+            console.log(mode);
+        }
+    })
     let canvas = document.querySelectorAll(".pixel");
     if (mode === "black"){
         canvas.forEach(pixel => {
