@@ -7,9 +7,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="buttons_wrapper">
+    <div class="wrapper">
         <button onclick="changeResolution()" id="set_resolution">Set pixels by side</button>
         <button onclick="erase()" id="reset">Reset</button>
+    </div>
+    <div class="wrapper">
+        <div>
+            <input type="radio" class="draw_type" name="draw_type" id="monochrome"  value="monochrome" checked />
+            <label for="monochrome">Monochrome</label>
+        </div>
+        <div>
+            <input type="radio" class="draw_type" name="draw_type" id="random"  value="random" checked />
+            <label for="random">Random</label>
+        </div>
+        <div>
+            <input type="radio" class="draw_type" name="draw_type" id="fading"  value="fading" checked />
+            <label for="fading">Fading</label>
+        </div>
     </div>
     <div class="container"></div>
    <script src="main.js"></script> 

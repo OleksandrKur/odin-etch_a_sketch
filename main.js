@@ -2,16 +2,33 @@ const container = document.querySelector(".container");
 let resolutionButton = document.getElementById("set_resolution");
 
 fillCanvas();
-draw();
+draw("test");
 
 
-function draw(){
+function draw(mode = 'black'){
     let canvas = document.querySelectorAll(".pixel");
-canvas.forEach(pixel => {
-    pixel.addEventListener("mouseover", event => {
-        event.target.style.backgroundColor = "#292521";
-    });
-})
+    if (mode === "black"){
+        canvas.forEach(pixel => {
+            pixel.addEventListener("mouseover", event => {
+                event.target.style.backgroundColor = "#292521";
+            });
+        })
+    }
+    else if(mode === "random"){
+        canvas.forEach(pixel => {
+            pixel.addEventListener("mouseover", event => {
+                event.target.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+            });
+        })       
+    }
+    else{
+        canvas.forEach(pixel => {
+            pixel.addEventListener("mouseover", event => {
+                event.target.style.backgroundColor = `#000000`;
+                lowerOpacity(event.target);
+            });
+        })      
+    }
 }
 
 function removeCanvas(){
@@ -50,4 +67,18 @@ function changeResolution(){
         alert("Valid input: number (1-100)")
     }
 
+}
+
+function lowerOpacity(element){
+    let opacity = 100;
+    element.style.opacity = `${opacity}%`;
+    let fadeTimer = setInterval(() => {
+        if (opacity == 0){
+            clearInterval(fadeTimer);
+        }
+        else{
+            opacity -= 10;
+            element.style.opacity = `${opacity}%`;
+        }
+    },100)
 }
