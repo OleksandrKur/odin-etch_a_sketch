@@ -1,0 +1,27 @@
+*{
+    
+}
+body{
+    margin:60px;
+}
+.container{
+    background-color: white;
+    display: flex;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    max-width: 900px;
+    border: 5px solid black;
+    
+}
+.pixel{
+    width: 6.25%;
+    aspect-ratio : 1 / 1;
+    box-sizing: border-box;
+    background-color: white
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.pixel:hover{
+    background-color: black;
+}
